@@ -6,28 +6,6 @@ class BotCommands(commands.Cog):
     def __init__(self, client, db, webhook):
         self.client = client
         self.db = db
-        self.webhook = webhook
-
-
-    @commands.guild_only()
-    @commands.command(aliases=['nk'])
-    @commands.has_permissions(administrator=True)
-    async def nuke(self, ctx, channel: discord.TextChannel = None):
-        channel = channel or ctx.channel
-        try:
-            isaiah = channel.position
-            await ctx.send(f"now nuking `{ctx.channel.name}`...")
-            newchannel = await channel.clone(reason=f"Nuked by {ctx.author}")
-            await channel.delete()
-            await newchannel.edit(position=isaiah, sync_permissions=True)
-            embed = discord.Embed(color=0x2c2f33)
-            embed.description = f"`CHANNEL HAS BEEN NUKED BY`: <@{ctx.author.id}>"
-            embed.set_image(url="https://media.discordapp.net/attachments/773644221449371698/776654450105253938/image0.gif?width=319&height=180")
-            await newchannel.send(embed=embed)
-            return
-
-        except:
-            pass
 
     @commands.guild_only()
     @commands.command(aliases=['latency'])
