@@ -4,10 +4,9 @@ import datetime
 import os
 
 class EmbedCommands(commands.Cog):
-    def __init__(self, client, db, webhook):
+    def __init__(self, client, db):
         self.client = client
         self.db = db
-        self.webhook = webhook
 
 
     @commands.command()
