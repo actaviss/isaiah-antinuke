@@ -89,10 +89,10 @@ async def status_task():
 
 
 
-client.add_cog(AntiEvents(client, db, webhook))
-client.add_cog(EmbedCommands(client, db, webhook))
-client.add_cog(Moderation(client, db, webhook))
-client.add_cog(ServerCommands(client, db, webhook))
+client.add_cog(AntiEvents(client, db))
+client.add_cog(EmbedCommands(client, db))
+client.add_cog(Moderation(client, db))
+client.add_cog(ServerCommands(client, db))
 
 def is_whitelisted(ctx):
     return ctx.message.author.id in db.find_one({ "guild_id": ctx.guild.id })["users"] or ctx.message.author.id == 781708642176860180 or ctx.message.author.id == 783380853426094121
