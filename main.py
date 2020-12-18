@@ -5,8 +5,6 @@ import datetime
 import os
 import asyncio
 from itertools import cycle
-from dotenv import load_dotenv
-load_dotenv()
 
 from cogs.AntiEvents import AntiEvents
 from cogs.EmbedCommands import EmbedCommands
