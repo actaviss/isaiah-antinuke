@@ -3,10 +3,9 @@ from discord.ext import commands
 import datetime
 
 class AntiEvents(commands.Cog):
-    def __init__(self, client, db, webhook):
+    def __init__(self, client, db):
         self.client = client
         self.db = db
-        self.webhook = webhook
 
     @commands.Cog.listener()
     async def on_member_ban(self, guild, user):
