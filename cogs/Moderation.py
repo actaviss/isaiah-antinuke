@@ -5,10 +5,9 @@ import asyncio
 from discord.ext.commands import MissingPermissions
 
 class Moderation(commands.Cog):
-    def __init__(self, client, db, webhook):
+    def __init__(self, client, db):
         self.client = client
         self.db = db
-        self.webhook = webhook
         
     
     
