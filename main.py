@@ -20,7 +20,7 @@ webhook = discord.Webhook.partial(
     adapter=discord.RequestsWebhookAdapter(),
 )
 
-MONGODB_URL = 'mongodb+srv://IsaiahWins47:FlexxRuns47@isaiah.uebgd.mongodb.net/<botdb>?retryWrites=true&w=majority'
+MONGODB_URL = 'mongodb+srv://actavisW:Josey1173@isaiahw.8meri.mongodb.net/<dbname>?retryWrites=true&w=majority'
 
 MONGODB_CERT_PATH = os.environ.get('MONGODB_CERT_PATH')
 
@@ -348,4 +348,4 @@ async def snipe(ctx, channel: discord.TextChannel = None):
             await ctx.send(embed = snipe_embed(ctx.channel, sniped_message, ctx.author))
 
 
-client.run(os.environ["CLIENT_TOKEN"])
+client.run(os.environ["token"])
