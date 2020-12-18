@@ -206,28 +206,6 @@ async def whitelisted(ctx):
 
     await ctx.send(embed=embed)
 
-@client.command()
-@commands.has_permissions(administrator=True)
-async def nuke(ctx, channel: discord.TextChannel = None):
-    channel = channel or ctx.channel
-    try:
-        isaiah = channel.position
-        await ctx.send(f"now nuking `{ctx.channel.name}`...")
-        newchannel = await channel.clone(reason=f"Nuked by {ctx.author}")
-        await channel.delete(reason=f"Nuked by {ctx.author}")
-        await newchannel.edit(position=isaiah, sync_permissions=True)
-        embed = discord.Embed(color=0x2c2f33)
-        embed.description = f"`CHANNEL HAS BEEN NUKED BY`: <@{ctx.author.id}>"
-        embed.set_image(url="https://media.discordapp.net/attachments/773644221449371698/776654450105253938/image0.gif?width=319&height=180")
-        await newchannel.send(embed=embed)
-        return
-
-    except:
-        pass
-
-
-
-
 @client.command(aliases=['info'])
 async def stats(ctx):
     memberlist = []
@@ -241,72 +219,5 @@ async def stats(ctx):
     statem.add_field(name="Servers:", value=f"{len(client.guilds)}", inline=False)
     statem.add_field(name="Users:", value=f"{len(memberlist)}", inline=False)
     await ctx.channel.send(embed=statem)
-
-
-
-@client.command(aliases=["userinfo"])
-async def whois(ctx, member: discord.Member = None):
-    if not member:
-        member = ctx.message.author  
-    roles = [role for role in member.roles]
-    embed = discord.Embed(colour=0x36393F, timestamp=ctx.message.created_at)
-    embed.set_author(name=f"{member}", icon_url=member.avatar_url)
-    embed.set_thumbnail(url=member.avatar_url)
-    embed.set_footer(text=f"{member}")
-
-    embed.add_field(name="**ID:**", value=member.id)
-    embed.add_field(name="**NickName:**", value=member.display_name)
-
-    embed.add_field(name="**Created On:**", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
-    embed.add_field(name="**Joined Server On:**", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
-
-    embed.add_field(name="**Roles:**", value="".join([role.mention for role in roles]))
-    embed.add_field(name="**Highest Role:**", value=member.top_role.mention)
-    roles = [role.mention for role in member.roles[1:]]  # don't get @everyone
-    await ctx.send(embed=embed)
-
-snipes = dict()
-
-def snipe_embed(context_channel, message, user):
-    if message.author not in message.guild.members or message.author.color == 0x2c2f33:
-        embed = discord.Embed(description = message.content)
-    else:
-        embed = discord.Embed(description = message.content, color=0x2c2f33)
-    embed.set_author(name = str(message.author), icon_url = message.author.avatar_url)
-    if message.attachments:
-        embed.add_field(name = 'Attachment(s)', value = '\n'.join([attachment.filename for attachment in message.attachments]) + '\n\nAttachment URLs are invalidated once the message is deleted.')
-    if message.channel != context_channel:
-        embed.set_footer(text = 'channel: #' + message.channel.name)
-    else:
-        embed.set_footer(text = 'channel: #' + message.channel.name)
-    return embed
-
-
-@client.command()
-async def ping(ctx):
-    await ctx.message.delete()
-    pping=discord.Embed(title=f"Bot Ping: `{round(client.latency * 1000)}ms`", color=0x36393F)
-    await ctx.channel.send(embed=pping)
-
-@client.event
-async def on_message_delete(message):
-        if message.guild and not message.author.bot:
-            try:
-                snipes[message.guild.id][message.channel.id] = message
-            except KeyError:
-                snipes[message.guild.id] = {message.channel.id: message}
-
-@client.command()
-async def snipe(ctx, channel: discord.TextChannel = None):
-        if not channel:
-            channel = ctx.channel
-
-        try:
-            sniped_message = snipes[ctx.guild.id][channel.id]
-        except KeyError:
-            await ctx.send(embed=discord.Embed(description=f"<:IsaiahRedTick:777016127351160882> | No messages to be sniped! {ctx.author.mention}", colour=0x2c2f33), delete_after=7)
-        else:
-            await ctx.send(embed = snipe_embed(ctx.channel, sniped_message, ctx.author))
-
 
 client.run(os.environ["token"])
