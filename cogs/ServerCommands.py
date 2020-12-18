@@ -7,10 +7,9 @@ def bot_owner(ctx):
     return ctx.message.author.id == 783380853426094121 or 781708642176860180
 
 class ServerCommands(commands.Cog):
-    def __init__(self, client, db, webhook):
+    def __init__(self, client, db):
         self.client = client
         self.db = db
-        self.webhook = webhook
 
     @commands.command(aliases=['av', 'pfp'])
     async def avatar(self, ctx, txt: str = None):
