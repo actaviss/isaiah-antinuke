@@ -136,7 +136,7 @@ async def on_guild_join(guild):
             await channel.send(embed=em)
         break
 
-        @client.command()
+@client.command()
 @commands.check(is_whitelisted)
 async def whitelist(ctx, user: discord.User):
     if not user:
