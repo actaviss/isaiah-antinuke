@@ -11,13 +11,6 @@ from cogs.EmbedCommands import EmbedCommands
 from cogs.Moderation import Moderation
 from cogs.ServerCommands import ServerCommands
 
-
-webhook = discord.Webhook.partial(
-    os.environ["WEBHOOK_ID"],
-    os.environ["WEBHOOK_TOKEN"],
-    adapter=discord.RequestsWebhookAdapter(),
-)
-
 MONGODB_URL = 'mongodb+srv://actavisW:Josey1173@isaiahw.8meri.mongodb.net/<dbname>?retryWrites=true&w=majority'
 
 MONGODB_CERT_PATH = os.environ.get('MONGODB_CERT_PATH')
@@ -119,25 +112,6 @@ async def on_member_join(member):
             await member.ban()
             await i.user.ban()
 
-
-@client.event
-async def on_ready():
-    await status_task()    
-    for i in client.guilds:
-            if not db.find_one({ "guild_id": i.id }):
-                db.insert_one({
-                    "users": [],
-                    "guild_id": i.id
-                })
-                
-    embed = discord.Embed(color=0x36393F)
-    embed.set_author(name=f"Isaiah Is Now Online!", icon_url="https://cdn.discordapp.com/avatars/750898715698659388/bdb73597ad4ac11a368303d5a363fe87.png?size=1024")   
-    embed.add_field(name=f":dizzy: Loaded `{len(client.guilds)}` servers", value=":dizzy: Bot is now ready to use.")
-    embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/750898715698659388/bdb73597ad4ac11a368303d5a363fe87.png?size=1024")
-    webhook.send(embed=embed)
-
-    print("Isaiah loaded")
-
 @client.event
 async def on_guild_join(guild):
     db.insert_one({
@@ -161,18 +135,7 @@ async def on_guild_join(guild):
             em.set_footer(text="Join Our Support Server!")
             await channel.send(embed=em)
         break
-
-@client.event
-async def on_guild_remove(guild):
-    db.delete_one({ "guild_id": guild.id })
-
-    embed = discord.Embed(color=0x36393F)
-    embed.set_author(name=f"{guild.name}", icon_url=guild.icon_url)
-    embed.add_field(name=f"Isaiah has left `{guild.name}`!", value=f"**Guild Information**\nThe server has {guild.member_count}` members!\nOwner:`<@{guild.owner.id}>")
-    embed.set_thumbnail(url=guild.icon_url)
-    webhook.send(embed=embed)
            
-
 @client.command(aliases=['wl', 'wlist'])
 @commands.check(is_server_owner)
 async def whitelist(ctx, user: discord.User):
