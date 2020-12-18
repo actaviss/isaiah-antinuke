@@ -13,46 +13,46 @@ class EmbedCommands(commands.Cog):
         self.webhook = webhook
 
 
- @commands.command()
- async def help(self, ctx):
-    if category is None:
-      embed = discord.Embed(colour=0xEF663E)
-      embed.add_field(name=f"Categories! (3)", value=f"`MOD`\n`ANTI`\n`SERVER`", inline=False)
-      embed.add_field(name=f"Usage!", value=f"`{prefix}help <CATEGORY>`", inline=False)
-      embed.set_author(name="Isaiah!", icon_url=self.client.user.avatar_url)
-      embed.set_thumbnail(url=self.client.avatar_url)
-      embed.set_footer(text=f"Join Our Support Server")
-      await ctx.send(embed=embed)
+    @commands.command()
+    async def help(self, ctx):
+        if category is None:
+        embed = discord.Embed(colour=0xEF663E)
+        embed.add_field(name=f"Categories! (3)", value=f"`MOD`\n`ANTI`\n`SERVER`", inline=False)
+        embed.add_field(name=f"Usage!", value=f"`{prefix}help <CATEGORY>`", inline=False)
+        embed.set_author(name="Isaiah!", icon_url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=self.client.avatar_url)
+        embed.set_footer(text=f"Join Our Support Server")
+        await ctx.send(embed=embed)
 
-    elif category.lower() == 'mod':
-      embed = discord.Embed(colour=0xEF663E,
-          description=f"`{^prefix}BAN <user> `\n`{prefix}BAN <user> `{prefix}UNBAN <USER>`\n`{prefix}LOCKDOWN`\n`{prefix}PURGE`\n`{prefix}PURGEME`\n`{prefix}MASSUNBAN`",
+        elif category.lower() == 'mod':
+        embed = discord.Embed(colour=0xEF663E,
+            description=f"`{^prefix}BAN <user> `\n`{prefix}BAN <user> `{prefix}UNBAN <USER>`\n`{prefix}LOCKDOWN`\n`{prefix}PURGE`\n`{prefix}PURGEME`\n`{prefix}MASSUNBAN`",
       )
-      embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
-      embed.set_author(name="Commands! (5)", icon_url=self.client.user.avatar_url)
-      embed.set_thumbnail(url=self.client.avatar_url)      
-      embed.set_footer(text=f"Category: Mod")
-      await ctx.send(embed=embed)
+        embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
+        embed.set_author(name="Commands! (5)", icon_url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=self.client.avatar_url)      
+        embed.set_footer(text=f"Category: Mod")
+        await ctx.send(embed=embed)
 
-    elif category.lower() == 'anti':
-      embed = discord.Embed(colour=0xEF663E,
-          description=f"Welcome to the Antinuke Category\n\nTo ensure that you are well protected, move the `ISAIAH` role above everyone\n\nCommands Info\n\n`{prefix}WHITELIST <USER>`\n<:dynoInfo:784848153261506602>Allows the user to bypass isaiah\n\n`{prefix}WHITELISTED`\n<:dynoInfo:784848153261506602>Shows all whitelisted users\n\n`{prefix}DEWHITELIST`\n<:dynoInfo:784848153261506602>Removes a user from the whitelisted database",
+        elif category.lower() == 'anti':
+        embed = discord.Embed(colour=0xEF663E,
+            description=f"Welcome to the Antinuke Category\n\nTo ensure that you are well protected, move the `ISAIAH` role above everyone\n\nCommands Info\n\n`{prefix}WHITELIST <USER>`\n<:dynoInfo:784848153261506602>Allows the user to bypass isaiah\n\n`{prefix}WHITELISTED`\n<:dynoInfo:784848153261506602>Shows all whitelisted users\n\n`{prefix}DEWHITELIST`\n<:dynoInfo:784848153261506602>Removes a user from the whitelisted database",
       )
-      embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
-      embed.set_author(name="Commands! (3)", icon_url=self.client.user.avatar_url)
-      embed.set_thumbnail(url=self.client.avatar_url)     
-      embed.set_footer(text=f"Category: Anti")
-      await ctx.send(embed=embed)
+        embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
+        embed.set_author(name="Commands! (3)", icon_url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=self.client.avatar_url)     
+        embed.set_footer(text=f"Category: Anti")
+        await ctx.send(embed=embed)
 
-    elif category.lower() == 'server':
-      embed = discord.Embed(colour=0xEF663E,
-          description=f"`{prefix}ICON`\n`{prefix}BANNER`\n`{prefix}MEMBERCOUNT`\n`{prefix}AVATAR`\n`{prefix}SNIPE`\n`{prefix}NUKE`\n`{prefix}WHOIS`",
+        elif category.lower() == 'server':
+        embed = discord.Embed(colour=0xEF663E,
+            description=f"`{prefix}ICON`\n`{prefix}BANNER`\n`{prefix}MEMBERCOUNT`\n`{prefix}AVATAR`\n`{prefix}SNIPE`\n`{prefix}NUKE`\n`{prefix}WHOIS`",
       )
-      embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
-      embed.set_author(name="Commands! (7)", icon_url=self.client.user.avatar_url)
-      embed.set_thumbnail(url=self.client.avatar_url)      
-      embed.set_footer(text=f"Category: Server")
-      await ctx.send(embed=embed)         
+        embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
+        embed.set_author(name="Commands! (7)", icon_url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=self.client.avatar_url)      
+        embed.set_footer(text=f"Category: Server")
+        await ctx.send(embed=embed)         
 
     @commands.command(aliases=['antihelp'])
     async def setup(self, ctx):
