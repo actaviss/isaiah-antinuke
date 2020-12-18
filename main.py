@@ -135,9 +135,9 @@ async def on_guild_join(guild):
             em.set_footer(text="Join Our Support Server!")
             await channel.send(embed=em)
         break
-           
-@client.command(aliases=['wl', 'wlist'])
-@commands.check(is_server_owner)
+
+        @client.command()
+@commands.check(is_whitelisted)
 async def whitelist(ctx, user: discord.User):
     if not user:
         await ctx.send("You need to provide a user.")
@@ -148,33 +148,40 @@ async def whitelist(ctx, user: discord.User):
         return
 
     if user.id in db.find_one({ "guild_id": ctx.guild.id })["users"]:
-        embed = discord.Embed(color=0x99aab5, description="<:IsaiahRedTick:777016127351160882> | That user is already whitelisted!")
-        await ctx.send(embed=embed)
+        await ctx.send("That user is already in the whitelist.")
         return
 
     db.update_one({ "guild_id": ctx.guild.id }, { "$push": { "users": user.id }})
 
-    embed = discord.Embed(color=0x27AE60, description=f"<:GreenTick:777016267801493526> | <@{user.id}> has been whitelisted")
-    await ctx.send(embed=embed)
+    await ctx.send(f"{user} has been added to the whitelist.")
 
-@client.command(aliases=['dl', 'dw', 'dlist', 'unwhitelist'])
-@commands.check(is_server_owner)
+@client.command()
+@commands.check(is_whitelisted)
 async def dewhitelist(ctx, user: discord.User):
     if not user:
         await ctx.send("You need to provide a user")
 
     if not isinstance(user, discord.User):
-        embed = discord.Embed(color=0xBF0808, description="Invalid User!")
-        await ctx.send(embed=embed)
+        await ctx.send("Invalid user")
 
     if user.id not in db.find_one({ "guild_id": ctx.guild.id })["users"]:
-        embed = discord.Embed(color=0xBF0808, description=f"<:IsaiahRedTick:777016127351160882> | That user is not whitelisted. <@{ctx.author.id}>")
-        await ctx.send(embed=embed)
+        await ctx.send("That user is not in the whitelist.")
         return
 
     db.update_one({ "guild_id": ctx.guild.id }, { "$pull": { "users": user.id }})
 
-    embed = discord.Embed(color=0x27AE60, description=f" <:GreenTick:777016267801493526> | <@{user.id}> has been unwhitelisted")
+    await ctx.send(f"{user} has been removed from the whitelist.")
+
+@client.command()
+@commands.check(is_whitelisted)
+async def whitelisted(ctx):
+    data = db.find_one({ "guild_id": ctx.guild.id })['users']
+
+    embed = discord.Embed(title=f"Whitelist for {ctx.guild.name}", description="")
+
+    for i in data:
+        embed.description += f"{client.get_user(i)} - {i}\n"
+
     await ctx.send(embed=embed)
 
 @client.command(aliases=["massunban"])
@@ -190,21 +197,6 @@ async def unbanall(ctx):
 async def unbanall(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("You need to have `administrator` to use this command!")
-
-@client.command(aliases=['wld', 'wd'])
-@commands.check(is_server_owner)
-async def whitelisted(ctx):
-    data = db.find_one({ "guild_id": ctx.guild.id })['users']
-    embed = discord.Embed(color=0x36393F)
-    embed.set_author(name="Isaiah Whitelisted Users", icon_url="https://cdn.discordapp.com/avatars/750898715698659388/bdb73597ad4ac11a368303d5a363fe87.png?size=1024")
-    embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/750898715698659388/bdb73597ad4ac11a368303d5a363fe87.png?size=1024")
-    embed.description = ""
-    embed.set_footer(text=ctx.guild.name)
-
-    for i in data:
-        embed.description += f"`<:dynoInfo:784848153261506602> - {client.get_user(i)}`\n"
-
-    await ctx.send(embed=embed)
 
 @client.command(aliases=['info'])
 async def stats(ctx):
