@@ -26,7 +26,7 @@ class EmbedCommands(commands.Cog):
 
        elif category.lower() == 'mod':
          embed = discord.Embed(colour=0xEF663E,
-             description=f"`{^prefix}BAN <user> `\n`{prefix}BAN <user> `{prefix}UNBAN <USER>`\n`{prefix}LOCKDOWN`\n`{prefix}PURGE`\n`{prefix}PURGEME`\n`{prefix}MASSUNBAN`",
+             description=f"`{prefix}BAN <user> `\n`{prefix}BAN <user> `{prefix}UNBAN <USER>`\n`{prefix}LOCKDOWN`\n`{prefix}PURGE`\n`{prefix}PURGEME`\n`{prefix}MASSUNBAN`",
            )
          embed.add_field(name=f"Usage!", value=f"`{prefix}[COMMAND]`", inline=False)
          embed.set_author(name="Commands! (5)", icon_url=self.client.user.avatar_url)
