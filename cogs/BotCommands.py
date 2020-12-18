@@ -3,7 +3,7 @@ from discord.ext import commands
 import datetime
 
 class BotCommands(commands.Cog):
-    def __init__(self, client, db, webhook):
+    def __init__(self, client, db):
         self.client = client
         self.db = db
 
