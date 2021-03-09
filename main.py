@@ -11,7 +11,7 @@ from cogs.EmbedCommands import EmbedCommands
 from cogs.Moderation import Moderation
 from cogs.ServerCommands import ServerCommands
 
-MONGODB_URL = 'mongodb+srv://actavisW:Josey1173@isaiahw.8meri.mongodb.net/<dbname>?retryWrites=true&w=majority'
+MONGODB_URL = 'mongodb+srv://actavis:<Josey1173>@isaiah.8meri.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 MONGODB_CERT_PATH = os.environ.get('MONGODB_CERT_PATH')
 
@@ -27,7 +27,7 @@ else:
 db = client[ "botdb" ] 
 db = db[ "whitelists" ]
 
-prefix = os.getenv("PREFIX")
+prefix = os.getenv("prefix")
 
 intents = discord.Intents.default()
 intents.members = True
