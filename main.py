@@ -9,7 +9,7 @@ from cogs.EmbedCommands import EmbedCommands
 from cogs.Moderation import Moderation
 from cogs.ServerCommands import ServerCommands
 
-MONGODB_URL = 'mongodb+srv://actavis:<Josey1173>@isaiah.8meri.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+MONGODB_URL = 'mongodb+srv://guardian:<angel1>@guardian.1vjor.mongodb.net/botdb?retryWrites=true&w=majority'
 
 MONGODB_CERT_PATH = os.environ.get('MONGODB_CERT_PATH')
 
