@@ -1,10 +1,8 @@
 import discord
-from discord.ext import commands, tasks
 import pymongo
-import datetime
 import os
 import asyncio
-from itertools import cycle
+import datetime
 
 from cogs.AntiEvents import AntiEvents
 from cogs.EmbedCommands import EmbedCommands
@@ -34,60 +32,6 @@ intents.members = True
 intents.presences = True
 client = commands.Bot(command_prefix=prefix, intents=intents)
 client.remove_command('help')
-
-
-
-
-
-
-# ERRROS
-
-
-@client.event
-async def on_command_error(ctx, error):
-    error_str = str(error)
-    error = getattr(error, 'original', error)
-    if isinstance(error, commands.CommandNotFound):
-        return
-
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(f"Please mention a user.", delete_after=13)
-
-    elif "403 Forbidden" in error_str:
-        return
-
-    elif isinstance(error, discord.errors.Forbidden):
-        return
-    elif isinstance(error, commands.MissingPermissions):
-        return
-
-    elif "The check functions" in error_str:
-        await ctx.send('You do not have permissions to run this command.', delete_after=13)   
-    
-    elif "400 Bad Request (error code: 50035): Invalid Form Body" in error_str: 
-        await ctx.send('Invalid Form Body')
-
-    else:
-        print(error)
-
-
-
-
-async def status_task():
-    while True:
-        memberlist = []
-        serverlist = []
-        for guild in client.guilds:
-            serverlist.append(guild)
-            for member in guild.members:
-                memberlist.append(member)
-        # await client.change_presence(activity=discord.Streaming(name=f'{len(serverlist)} servers | >setup', url='https://www.twitch.tv/lxi'))
-        await client.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name=f'Watching you.. | .help'))
-        await asyncio.sleep(8)
-        await client.change_presence(status=discord.Status.idle, activity=discord.Game(name=f'Best AntiNuke on Discord.'))
-        await asyncio.sleep(8)
-
-
 
 client.add_cog(AntiEvents(client, db))
 client.add_cog(EmbedCommands(client, db))
